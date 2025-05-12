@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Registro de Usuario</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="register.html">Registro</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Crear Cuenta</h2>
+            <form id="register-form">
+                <label for="username">Nombre de usuario:</label><br>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Contraseña:</label><br>
+                <input type="password" id="password" name="password" required><br>
+                <button type="submit">Registrarse</button>
+            </form>
+            <p id="register-message"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Concesionario Web</p>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>
