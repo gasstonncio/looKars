@@ -1,4 +1,3 @@
-import app
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -7,13 +6,13 @@ import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///coches.db'
 db = SQLAlchemy(app)
+
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
