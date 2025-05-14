@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
+from functools import update_wrapper, wraps
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///coches.db'
@@ -18,6 +19,10 @@ class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(120), nullable=False)
+    nombre = db.Column(db.String(80), nullable=True)
+    apellidos = db.Column(db.String(100), nullable=True)
+    email = db.Column(db.String(120), unique=True, nullable=True)
+    telefono = db.Column(db.String(20), nullable=True)
     coches = relationship('Coche', backref='usuario', lazy=True)
 
     def set_password(self, password):
@@ -38,17 +43,25 @@ with app.app_context():
 
 @app.route('/register', methods=['POST'])
 def register():
-    # Tu código para el registro de usuarios va aquí
+
     pass
 
 @app.route('/login', methods=['POST'])
 def login():
-    # Tu código para el inicio de sesión de usuarios va aquí
+
     pass
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify(message="Authentication required"), 401
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/anunciar_coche', methods=['POST'])
 @login_required
@@ -70,6 +83,29 @@ def anunciar_coche():
         return jsonify({'message': 'Car uploaded successfully'}), 201
     else:
         return jsonify({'message': 'Invalid file type'}), 400
+
+@app.route('/perfil', methods=['GET', 'POST'])
+@requires_auth
+def perfil():
+    if request.method == 'GET':
+        # Devuelve la información del perfil del usuario logueado
+        return jsonify({
+            'username': current_user.username,
+            'nombre': current_user.nombre,
+            'apellidos': current_user.apellidos,
+            'email': current_user.email,
+            'telefono': current_user.telefono
+        }), 200
+    elif request.method == 'POST':
+        # Actualiza la información del perfil del usuario logueado
+        current_user.nombre = request.json.get('nombre', current_user.nombre)
+        current_user.apellidos = request.json.get('apellidos', current_user.apellidos)
+        current_user.email = request.json.get('email', current_user.email)
+        current_user.telefono = request.json.get('telefono', current_user.telefono)
+        db.session.commit()
+        return jsonify({'message': 'Profile updated successfully'}), 200
+    return jsonify(message="Method Not Allowed"), 405
+
 
 if __name__ == '__main__':
     app.run(debug=True)
