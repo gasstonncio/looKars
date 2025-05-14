@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anunciar Coche</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-$END$
+    <header>
+        <h1>Anunciar Coche</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="anunciar_coche.html">Anunciar Coche</a></li>
+                </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Subir Información del Coche</h2>
+            <form id="anunciar-coche-form" enctype="multipart/form-data">
+                <label for="modelo">Modelo:</label><br>
+                <input type="text" id="modelo" name="modelo" required><br>
+                <label for="descripcion">Descripción:</label><br>
+                <textarea id="descripcion" name="descripcion" required></textarea><br>
+                <label for="foto">Foto:</label><br>
+                <input type="file" id="foto" name="foto" accept="image/*" required><br>
+                <button type="submit">Subir Coche</button>
+            </form>
+            <p id="anunciar-coche-message"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Concesionario Web</p>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/anunciar_coche.js"></script>
 </body>
 </html>
