@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-$END$
+    <header>
+        <h1>Perfil de Usuario</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+                </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Información del Perfil</h2>
+            <form id="perfil-form">
+                <label for="username">Nombre de usuario:</label><br>
+                <input type="text" id="username" name="username" required readonly><br>
+                <label for="nombre">Nombre:</label><br>
+                <input type="text" id="nombre" name="nombre"><br>
+                <label for="apellidos">Apellidos:</label><br>
+                <input type="text" id="apellidos" name="apellidos"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="telefono">Teléfono:</label><br>
+                <input type="tel" id="telefono" name="telefono"><br>
+                <button type="submit">Guardar Cambios</button>
+            </form>
+            <p id="perfil-message"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Concesionario Web</p>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/perfil.js"></script>
 </body>
 </html>
