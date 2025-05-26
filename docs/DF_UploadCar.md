@@ -1,4 +1,5 @@
 ```mermaid
+
 graph TD
     A[Usuario introduce datos y selecciona foto] --> B{Frontend envía POST /anunciar_coche (FormData)};
     B --> C{Backend recibe petición};
