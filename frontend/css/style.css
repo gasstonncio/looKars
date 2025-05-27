@@ -67,3 +67,28 @@ footer {
 .success {
     color: green;
 }
+
+.car-listing {
+    border: 1px solid #ccc;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.car-listing img {
+    max-width: 250px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+.car-details h3 {
+    font-size: 1.8em;
+    margin-top: 0;
+    color: #333;
+}
+.car-details p {
+    font-size: 1.1em;
+    color: #555;
+}
