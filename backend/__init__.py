@@ -49,4 +49,6 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+   # app.static_folder = os.path.join(app.root_path, app.config['UPLOAD_FOLDER']) No funciona
+
     return app

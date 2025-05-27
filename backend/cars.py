@@ -37,3 +37,17 @@ def anunciar_coche():
         return jsonify({'message': 'Car uploaded successfully'}), 201
     else:
         return jsonify({'message': 'Invalid file type'}), 400
+
+@cars_bp.route('/coches', methods=['GET'])
+def get_coches():
+    coches = Coche.query.all() #Obtencion de todos los coches de la bbdd
+    coches_list = []
+    for coche in coches:
+        coches_list.append({
+            'id': coche.id,
+            'modelo': coche.modelo,
+            'descripcion': coche.descripcion,
+            'ruta_foto': coche.ruta_foto,
+            'usuario_id': coche.usuario_id
+        })
+    return jsonify(coches_list), 200
