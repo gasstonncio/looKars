@@ -19,14 +19,21 @@
                 <li><a href="coches.html">Ver Coches</a></li> </ul>
         </nav>
     </header>
-    <main>
-        <section>
-            <h2>Nuestros Vehículos</h2>
-            <div id="coches-container">
-                <p>Cargando coches...</p>
-            </div>
-        </section>
-    </main>
+        <main>
+            <section>
+                <h2>Nuestros Vehículos</h2>
+                <div class="search-filter-container">
+                    <input type="text" id="search-input" placeholder="Buscar por modelo o descripción...">
+                    <input type="text" id="modelo-filter" placeholder="Filtrar por modelo exacto">
+                    <input type="text" id="descripcion-filter" placeholder="Filtrar por descripción">
+                    <button id="apply-filters-btn">Aplicar Filtros</button>
+                    <button id="clear-filters-btn">Limpiar Filtros</button>
+                </div>
+                <div id="coches-container">
+                    <p>Cargando coches...</p>
+                </div>
+            </section>
+        </main>
     <footer>
         <p>&copy; 2025 Concesionario Web</p>
     </footer>
