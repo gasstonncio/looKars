@@ -1,6 +1,32 @@
 const cochesContainer = document.getElementById('coches-container');
+const searchInput = document.getElementById('search-input');
+const modeloFilter = document.getElementById('modelo-filter');
+const descripcionFilter = document.getElementById('descripcion-filter');
+const applyFiltersBtn = document.getElementById('apply-filters-btn');
+const clearFiltersBtn = document.getElementById('clear-filters-btn');
 
 async function obtenerCoches() {
+
+    cochesContainer.innerHTML = '<p>Cargando coches...</p>'; //Mensaje de carga
+
+    //Construir la URL con parametros de consulta
+    const params = new URLSearchParams();
+
+    //General
+    if (searchInput.value) {
+        params.append('search', searchInput.value);
+    }
+    //Filtro por modelo
+    if (modeloFilter.value) {
+        params.append('modelo', modeloFilter.value);
+    }
+    //Filtro por descripción
+    if (descripcionFilter.value) {
+        params.append('descripcion', descripcionFilter.value);
+    }
+
+    const queryString = params.toString();
+    const url = `/coches${queryString ? `?${queryString}` : ''}`;
     try {
         const response = await fetch('/coches', {
             method: 'GET',
@@ -11,7 +37,7 @@ async function obtenerCoches() {
 
         const coches = await response.json();
 
-        cochesContainer.innerHTML = ''; // Limpia el mensaje de "Cargando..."
+        cochesContainer.innerHTML = ''; //Limpia el mensaje de "Cargando..."
 
         if (response.ok) { // Asegurarse de que la respuesta del servidor fue exitosa (código 2xx)
             if (coches.length === 0) {
@@ -53,3 +79,13 @@ async function obtenerCoches() {
 
 //Llamar a la funcion al cargar la pagina
 obtenerCoches();
+
+//Botones de filtro
+applyFiltersBtn.addEventListener('click', obtenerCoches);
+
+clearFiltersBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    modeloFilter.value = '';
+    descripcionFilter.value = '';
+    obtenerCoches(); // Vuelve a cargar todos los coches
+});
