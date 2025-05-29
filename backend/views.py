@@ -35,6 +35,12 @@ def coches_page():
     project_root = os.path.dirname(current_app.root_path)
     return send_from_directory(os.path.join(project_root, 'frontend'), 'coches.html')
 
+@views_bp.route('/detalle_coche.html')
+def detalle_coche_page():
+    project_root = os.path.dirname(current_app.root_path)
+    return send_from_directory(os.path.join(project_root, 'frontend'), 'detalle_coche.html')
+
+
 # Rutas para servir archivos CSS
 @views_bp.route('/css/<path:filename>')
 def serve_css(filename):

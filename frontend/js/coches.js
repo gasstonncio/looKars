@@ -48,10 +48,16 @@ async function obtenerCoches() {
             coches.forEach(coche => {
                 const carDiv = document.createElement('div');
                 carDiv.classList.add('car-listing');
+                carDiv.style.cursor = 'pointer';
+
+                //Evento de click
+                 carDiv.addEventListener('click', () => {
+                    window.location.href = `detalle_coche.html?id=${coche.id}`; //Redirige con el ID del coche
+                });
 
                 const img = document.createElement('img');
-
-                img.src = `/uploads/${coche.ruta_foto.split('\\').pop().split('/').pop()}`; // Ajusta la ruta para que solo sea el nombre del archivo
+                const filename = coche.ruta_foto.split('\\').pop().split('/').pop();
+                img.src = `/uploads/${filename}`;
                 img.alt = coche.modelo;
 
                 const detailsDiv = document.createElement('div');
@@ -87,5 +93,5 @@ clearFiltersBtn.addEventListener('click', () => {
     searchInput.value = '';
     modeloFilter.value = '';
     descripcionFilter.value = '';
-    obtenerCoches(); // Vuelve a cargar todos los coches
+    obtenerCoches(); //Vuelve a cargar todos los coches
 });

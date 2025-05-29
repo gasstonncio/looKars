@@ -73,3 +73,19 @@ def get_coches():
             'usuario_id': coche.usuario_id
         })
     return jsonify(coches_list), 200
+
+@cars_bp.route('/coches/<int:car_id>', methods=['GET'])
+def get_coche_detalle(car_id):
+    coche = Coche.query.get(car_id) # Busca el coche por su ID
+
+    if not coche:
+        return jsonify({'message': 'Coche no encontrado'}), 404
+
+    coche_data = {
+        'id': coche.id,
+        'modelo': coche.modelo,
+        'descripcion': coche.descripcion,
+        'ruta_foto': coche.ruta_foto,
+        'usuario_id': coche.usuario_id,
+    }
+    return jsonify(coche_data), 200
