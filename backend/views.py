@@ -4,7 +4,7 @@ import os
 views_bp = Blueprint('views', __name__)
 
 
-# Rutas para servir archivos HTML
+# Rutas archivos HTML
 @views_bp.route('/')
 def index():
     project_root = os.path.dirname(current_app.root_path)
@@ -40,20 +40,28 @@ def detalle_coche_page():
     project_root = os.path.dirname(current_app.root_path)
     return send_from_directory(os.path.join(project_root, 'frontend'), 'detalle_coche.html')
 
+@views_bp.route('/mis_coches.html')
+def mis_coches_page():
+    project_root = os.path.dirname(current_app.root_path)
+    return send_from_directory(os.path.join(project_root, 'frontend'), 'mis_coches.html')
 
-# Rutas para servir archivos CSS
+@views_bp.route('/editar_coche.html')
+def editar_coche_page():
+    project_root = os.path.dirname(current_app.root_path)
+    return send_from_directory(os.path.join(project_root, 'frontend'), 'editar_coche.html')
+
+# Rutas archivos JS
 @views_bp.route('/css/<path:filename>')
 def serve_css(filename):
     project_root = os.path.dirname(current_app.root_path)
     return send_from_directory(os.path.join(project_root, 'frontend', 'css'), filename)
 
-# Rutas para servir archivos JavaScript
 @views_bp.route('/js/<path:filename>')
 def serve_js(filename):
     project_root = os.path.dirname(current_app.root_path)
     return send_from_directory(os.path.join(project_root, 'frontend', 'js'), filename)
 
-# Ruta para servir archivos de la carpeta 'uploads' (las fotos de los coches)
+#Ruta para servir archivos de la carpeta 'uploads' (las fotos de los coches)
 @views_bp.route('/uploads/<path:filename>')
 def serve_uploaded_file(filename):
     project_root = os.path.dirname(current_app.root_path)
