@@ -27,7 +27,7 @@ def create_app():
     db.init_app(app) #Inicializar SQLAlchemy con la app
 
     login_manager.init_app(app) #Inicializar Flask-Login con la app
-    login_manager.login_view = 'login' #Ruta para redirigir si no está logueado
+    login_manager.login_view = 'auth.login' #Ruta para redirigir si no está logueado
 
     # Importamos aquí para evitar importaciones circulares en Flask-SQLAlchemy
     from .models import Usuario, Coche
