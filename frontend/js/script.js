@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navPerfil = document.getElementById('nav-perfil');
     const navVerCoches = document.getElementById('nav-ver-coches');
     const navMisAnuncios = document.getElementById('nav-mis-anuncios');
+    const navUsername = document.getElementById('nav-username');
     const navLogout = document.getElementById('nav-logout');
     const logoutLink = document.getElementById('logout-link');
 
@@ -17,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) { //Usuario logueado
-                showLoggedInNav();
+                const userData = await response.json();
+                showLoggedInNav(userData.username);
             } else { //Usuario no logueado o sesion expirada
                 showLoggedOutNav();
             }
@@ -27,29 +29,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showLoggedInNav() {
-        navRegister.style.display = 'none';
-        navLogin.style.display = 'none';
-        navAnunciarCoche.style.display = 'list-item';
-        navPerfil.style.display = 'list-item';
-        navVerCoches.style.display = 'list-item'; //Mostrar también para logueados
-        navMisAnuncios.style.display = 'list-item';
-        navLogout.style.display = 'list-item';
-    }
+function showLoggedInNav(username) {
+    navRegister.style.display = 'none';
+    navLogin.style.display = 'none';
+    navAnunciarCoche.style.display = 'inline-block';
+    navPerfil.style.display = 'inline-block';
+    navVerCoches.style.display = 'inline-block';
+    navMisAnuncios.style.display = 'inline-block';
+    navUsername.style.display = 'inline-block';
+    navUsername.querySelector('span').textContent = `Hola, ${username}`;
+    navLogout.style.display = 'inline-block';
+}
 
-    function showLoggedOutNav() {
-        navRegister.style.display = 'list-item';
-        navLogin.style.display = 'list-item';
-        navAnunciarCoche.style.display = 'none';
-        navPerfil.style.display = 'none';
-        navVerCoches.style.display = 'list-item'; //'Ver Coches' para todos
-        navMisAnuncios.style.display = 'none';
-        navLogout.style.display = 'none';
-    }
+function showLoggedOutNav() {
+    navRegister.style.display = 'inline-block';
+    navLogin.style.display = 'inline-block';
+    navAnunciarCoche.style.display = 'none';
+    navPerfil.style.display = 'none';
+    navVerCoches.style.display = 'inline-block';
+    navMisAnuncios.style.display = 'none';
+    navUsername.style.display = 'none';
+    navUsername.querySelector('span').textContent = '';
+    navLogout.style.display = 'none';
+}
 
     //Logica de logout
     logoutLink.addEventListener('click', async (event) => {
-        event.preventDefault(); // Evitar que el enlace navegue
+        event.preventDefault(); //Evitar que el enlace navegue
 
         try {
             const response = await fetch('/logout', {
