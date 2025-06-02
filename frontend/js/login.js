@@ -21,7 +21,7 @@ loginForm.addEventListener('submit', async (event) => {
         if (response.ok) {
             loginMessage.textContent = data.message;
             loginForm.reset();
-            // Redirigir a la página principal o hacer otra acción
+            window.location.href = 'coches.html';
         } else {
             loginMessage.textContent = data.message;
         }
