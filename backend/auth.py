@@ -41,7 +41,7 @@ def login():
     login_user(user) # Inicia sesión al usuario con Flask-Login
     return jsonify({'message': 'Login successful'}), 200
 
-@auth_bp.route('/logout') # Ruta para cerrar sesion
+@auth_bp.route('/logout', methods=['POST']) # Ruta para cerrar sesion
 @login_required #Requiere que el usuario este logueado para cerrar sesion
 def logout():
     logout_user() # Cierra la sesión del usuario con Flask-Login
