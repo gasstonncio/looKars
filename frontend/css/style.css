@@ -1,95 +1,315 @@
+/* --- ESTILOS GENERALES Y TIPOGRAFÍA --- */
 body {
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif; /* Usamos Inter, una fuente moderna y limpia */
     margin: 0;
     padding: 0;
+    background-color: #f4f7f6; /* Un gris muy claro para el fondo */
+    color: #333; /* Color de texto principal */
+    line-height: 1.6;
 }
 
 header {
-    background-color: #f0f0f0;
-    padding: 10px;
+    background-color: #ffffff; /* Fondo blanco para el encabezado */
+    padding: 15px 20px; /* Más padding */
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
+    border-bottom-left-radius: 8px; /* Bordes redondeados en la parte inferior */
+    border-bottom-right-radius: 8px;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
+h1 {
+    color: #2c3e50; /* Un azul oscuro para los títulos principales */
+    font-size: 2.5em; /* Título más grande */
+    margin-bottom: 10px;
 }
 
-nav ul li {
-    display: inline-block;
-    margin-right: 20px;
-    vertical-align: middle;
+h2 {
+    color: #34495e; /* Un gris azulado para los subtítulos */
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0; /* Línea debajo del subtítulo */
+    padding-bottom: 10px;
+    text-align: center;
 }
 
 main {
     padding: 20px;
+    max-width: 1200px; /* Limita el ancho del contenido principal */
+    margin: 20px auto; /* Centra el contenido */
+    background-color: #ffffff; /* Fondo blanco para el contenido principal */
+    border-radius: 10px; /* Bordes redondeados para el contenedor principal */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra ligera */
 }
 
+section {
+    padding: 20px;
+}
+
+/* --- NAVEGACIÓN (PESTAÑAS) --- */
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Usamos flexbox para alinear elementos */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    flex-wrap: wrap; /* Permite que los elementos salten de línea en pantallas pequeñas */
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px; /* Espacio entre los elementos de navegación */
+    vertical-align: middle;
+}
+
+nav ul li a,
+nav ul li span { /* Aplicamos estilos tanto a enlaces como al span del username */
+    text-decoration: none;
+    color: #3498db; /* Color azul para los enlaces */
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+nav ul li a:hover {
+    background-color: #3498db;
+    color: #ffffff; /* Texto blanco al pasar el ratón */
+}
+
+/* Estilo específico para el enlace de cerrar sesión */
+#logout-link {
+    background-color: #e74c3c; /* Rojo para cerrar sesión */
+    color: white;
+}
+
+#logout-link:hover {
+    background-color: #c0392b;
+}
+
+/* Estilo para el nombre de usuario */
+#nav-username span {
+    color: #2ecc71; /* Un color verde para el nombre de usuario */
+    padding: 8px 15px;
+    border: 1px solid #2ecc71;
+    border-radius: 5px;
+    background-color: #e8f8f5;
+}
+
+
+/* --- FORMULARIOS (CUADROS DE TEXTO Y BOTONES) --- */
 form {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    max-width: 400px; /* Limita el ancho de los formularios */
+    margin: 20px auto; /* Centra el formulario */
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 label {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
 }
 
-input {
-    padding: 5px;
-    margin-bottom: 10px;
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="file"],
+textarea {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1em;
+    box-sizing: border-box; /* Asegura que padding y border se incluyan en el ancho */
+    width: 100%; /* Ocupa todo el ancho disponible del formulario */
 }
 
-button {
-    padding: 10px;
-    background-color: #007bff;
+textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 100px;
+}
+
+button[type="submit"],
+.my-car-actions button,
+#apply-filters-btn, /* Añadido el botón de aplicar filtros */
+#clear-filters-btn { /* Añadido el botón de limpiar filtros */
+    padding: 12px 20px;
+    background-color: #3498db; /* Azul para botones primarios */
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición y efecto al pasar el ratón */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para botones */
+    margin-top: 10px; /* Espacio superior para botones */
 }
 
-button:hover {
-    background-color: #0056b3;
+button[type="submit"]:hover,
+.my-car-actions button:hover,
+#apply-filters-btn:hover,
+#clear-filters-btn:hover {
+    background-color: #2980b9; /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de "levantar" */
 }
 
-footer {
-    background-color: #f0f0f0;
-    padding: 10px;
+/* Estilos específicos para botones de edición/eliminación */
+.my-car-actions .edit-btn {
+    background-color: #f39c12; /* Naranja para editar */
+}
+.my-car-actions .edit-btn:hover {
+    background-color: #e67e22;
+}
+.my-car-actions .delete-btn {
+    background-color: #e74c3c; /* Rojo para eliminar */
+}
+.my-car-actions .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* --- MENSAJES GLOBALES --- */
+#global-message-container {
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 5px;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    font-weight: bold;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    position: relative; /* Para que z-index funcione */
+}
+/* Colores para los tipos de mensaje */
+#global-message-container.info {
+    background-color: #e7f3fe;
+    color: #0366d6;
+    border: 1px solid #a8d5ff;
+}
+#global-message-container.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+#global-message-container.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
-.error {
-    color: red;
-}
 
-.success {
-    color: green;
-}
-
-.car-listing {
-    border: 1px solid #ccc;
+/* --- LISTADOS DE COCHES (VER COCHES Y MIS ANUNCIOS) --- */
+.car-listing, .my-car-listing { /* Unificamos estilos base para listados */
+    border: 1px solid #e0e0e0;
     padding: 25px;
     margin-bottom: 30px;
-    border-radius: 8px;
+    border-radius: 10px; /* Bordes más redondeados */
     display: flex;
     align-items: center;
     gap: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease; /* Efecto al pasar el ratón */
 }
-.car-listing img {
-    max-width: 250px;
+.car-listing:hover { /* Efecto de "levantar" al pasar el ratón */
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.car-listing img, .my-car-listing img {
+    max-width: 250px; /* Tamaño de imagen para galería principal */
     height: auto;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
-.car-details h3 {
+.my-car-listing img { /* Ajuste para imágenes en "Mis Anuncios" si quieres que sean más pequeñas */
+    max-width: 150px;
+}
+.car-details h3, .my-car-details h3 {
     font-size: 1.8em;
     margin-top: 0;
-    color: #333;
+    color: #2c3e50;
 }
-.car-details p {
+.car-details p, .my-car-details p {
     font-size: 1.1em;
     color: #555;
+}
+
+/* Contenedor de búsqueda y filtros */
+.search-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    justify-content: center;
+    align-items: center;
+}
+.search-filter-container input[type="text"] {
+    flex: 1; /* Permite que los inputs crezcan */
+    min-width: 180px; /* Ancho mínimo para inputs */
+    margin-bottom: 0; /* Eliminar margen inferior si están en línea */
+}
+.search-filter-container button {
+    margin-bottom: 0;
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA LA PÁGINA DE DETALLE DEL COCHE (detalle_coche.html) --- */
+.car-detail-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
+    text-align: center;
+}
+.car-detail-container img {
+    width: 600px; /* Ancho fijo para la imagen de detalle */
+    height: 450px; /* Alto fijo para la imagen de detalle */
+    object-fit: cover; /* Recorta la imagen para cubrir el área sin distorsionar */
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.car-detail-container h2 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+.car-detail-container p {
+    color: #666;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.car-detail-container .meta-info {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+/* Footer */
+footer {
+    background-color: #34495e; /* Color oscuro para el footer */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: relative; /* Cambiado de fixed para que no se superponga si el contenido es largo */
+    bottom: 0;
+    width: 100%;
+    margin-top: 30px; /* Espacio superior */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }

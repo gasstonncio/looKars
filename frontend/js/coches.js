@@ -6,29 +6,24 @@ const applyFiltersBtn = document.getElementById('apply-filters-btn');
 const clearFiltersBtn = document.getElementById('clear-filters-btn');
 
 async function obtenerCoches() {
+    cochesContainer.innerHTML = '<p>Cargando coches...</p>';
 
-    cochesContainer.innerHTML = '<p>Cargando coches...</p>'; //Mensaje de carga
-
-    //Construir la URL con parametros de consulta
     const params = new URLSearchParams();
-
-    //General
     if (searchInput.value) {
         params.append('search', searchInput.value);
     }
-    //Filtro por modelo
     if (modeloFilter.value) {
         params.append('modelo', modeloFilter.value);
     }
-    //Filtro por descripción
     if (descripcionFilter.value) {
         params.append('descripcion', descripcionFilter.value);
     }
 
     const queryString = params.toString();
     const url = `/coches${queryString ? `?${queryString}` : ''}`;
+
     try {
-        const response = await fetch('/coches', {
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,11 +32,11 @@ async function obtenerCoches() {
 
         const coches = await response.json();
 
-        cochesContainer.innerHTML = ''; //Limpia el mensaje de "Cargando..."
+        cochesContainer.innerHTML = '';
 
-        if (response.ok) { // Asegurarse de que la respuesta del servidor fue exitosa (código 2xx)
+        if (response.ok) {
             if (coches.length === 0) {
-                cochesContainer.innerHTML = '<p>No hay coches disponibles en este momento.</p>';
+                cochesContainer.innerHTML = '<p>No hay coches disponibles que coincidan con los criterios de búsqueda.</p>';
                 return;
             }
 
@@ -50,9 +45,8 @@ async function obtenerCoches() {
                 carDiv.classList.add('car-listing');
                 carDiv.style.cursor = 'pointer';
 
-                //Evento de click
-                 carDiv.addEventListener('click', () => {
-                    window.location.href = `detalle_coche.html?id=${coche.id}`; //Redirige con el ID del coche
+                carDiv.addEventListener('click', () => {
+                    window.location.href = `detalle_coche.html?id=${coche.id}`;
                 });
 
                 const img = document.createElement('img');
@@ -65,7 +59,7 @@ async function obtenerCoches() {
                 detailsDiv.innerHTML = `
                     <h3>${coche.modelo}</h3>
                     <p>${coche.descripcion}</p>
-                    <p>Publicado por usuario ID: ${coche.usuario_id}</p>
+                    <p>Publicado por: <strong>${coche.vendedor_username}</strong></p> <!-- CAMBIO AQUÍ -->
                 `;
 
                 carDiv.appendChild(img);
@@ -73,7 +67,6 @@ async function obtenerCoches() {
                 cochesContainer.appendChild(carDiv);
             });
         } else {
-            //Manejar errores del servidor, por ejemplo, si la respuesta no es 200 OK
             cochesContainer.innerHTML = `<p>Error del servidor: ${coches.message || 'Desconocido'}</p>`;
         }
 
@@ -83,15 +76,11 @@ async function obtenerCoches() {
     }
 }
 
-//Llamar a la funcion al cargar la pagina
 obtenerCoches();
-
-//Botones de filtro
 applyFiltersBtn.addEventListener('click', obtenerCoches);
-
 clearFiltersBtn.addEventListener('click', () => {
     searchInput.value = '';
     modeloFilter.value = '';
     descripcionFilter.value = '';
-    obtenerCoches(); //Vuelve a cargar todos los coches
+    obtenerCoches();
 });

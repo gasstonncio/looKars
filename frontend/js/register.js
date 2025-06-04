@@ -1,5 +1,6 @@
 const registerForm = document.getElementById('register-form');
-const registerMessage = document.getElementById('register-message');
+// registerMessage ya no es necesario si usas showMessage globalmente
+// const registerMessage = document.getElementById('register-message');
 
 registerForm.addEventListener('submit', async (event) => {
     event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
@@ -19,13 +20,16 @@ registerForm.addEventListener('submit', async (event) => {
         const data = await response.json();
 
         if (response.ok) {
-            registerMessage.textContent = data.message;
+            showMessage(data.message || 'Usuario creado exitosamente.', 'success');
             registerForm.reset(); // Limpia el formulario
-            // Redirigir al login o hacer otra acción si es necesario
+            setTimeout(() => {
+                window.location.href = 'login.html'; // Redirigir al login
+            }, 1500); // Dar tiempo para que el mensaje se vea
         } else {
-            registerMessage.textContent = data.message;
+            showMessage(data.message || 'Error al registrar el usuario.', 'error');
         }
     } catch (error) {
-        registerMessage.textContent = 'Error al registrar el usuario.';
+        console.error('Error al registrar el usuario:', error);
+        showMessage('Error de conexión al registrar el usuario.', 'error');
     }
 });

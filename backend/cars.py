@@ -40,19 +40,15 @@ def anunciar_coche():
 
 @cars_bp.route('/coches', methods=['GET'])
 def get_coches():
-    # Obtener parámetros de búsqueda y filtrado de la URL
     search_term = request.args.get('search', '')
     modelo_filtro = request.args.get('modelo', '')
     descripcion_filtro = request.args.get('descripcion', '')
 
-    # Construir la consulta base
     query = Coche.query
 
-    #Aplicar filtros si existen
     if search_term:
-        #Busqueda general en modelo o descripcion
         query = query.filter(
-            (Coche.modelo.ilike(f'%{search_term}%')) | # ilike para evitar busqueda key-sensitive
+            (Coche.modelo.ilike(f'%{search_term}%')) |
             (Coche.descripcion.ilike(f'%{search_term}%'))
         )
     if modelo_filtro:
@@ -60,17 +56,19 @@ def get_coches():
     if descripcion_filtro:
         query = query.filter(Coche.descripcion.ilike(f'%{descripcion_filtro}%'))
 
-    #Ejecutar la consulta
     coches = query.all()
 
     coches_list = []
     for coche in coches:
+        # Obtener el nombre de usuario del propietario del coche
+        vendedor_username = coche.usuario.username if coche.usuario else 'Desconocido'
         coches_list.append({
             'id': coche.id,
             'modelo': coche.modelo,
             'descripcion': coche.descripcion,
             'ruta_foto': coche.ruta_foto,
-            'usuario_id': coche.usuario_id
+            'usuario_id': coche.usuario_id, # Mantenemos el ID
+            'vendedor_username': vendedor_username # NUEVO: Nombre de usuario del vendedor
         })
     return jsonify(coches_list), 200
 
@@ -81,12 +79,15 @@ def get_coche_detalle(car_id):
     if not coche:
         return jsonify({'message': 'Coche no encontrado'}), 404
 
+    vendedor_username = coche.usuario.username if coche.usuario else 'Desconocido'
+
     coche_data = {
         'id': coche.id,
         'modelo': coche.modelo,
         'descripcion': coche.descripcion,
         'ruta_foto': coche.ruta_foto,
         'usuario_id': coche.usuario_id,
+        'vendedor_username': vendedor_username,
     }
     return jsonify(coche_data), 200
 
