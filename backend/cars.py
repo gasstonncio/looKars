@@ -43,6 +43,7 @@ def get_coches():
     search_term = request.args.get('search', '')
     modelo_filtro = request.args.get('modelo', '')
     descripcion_filtro = request.args.get('descripcion', '')
+    limit = request.args.get('limit', type=int) # Nuevo: Obtener el límite como entero
 
     query = Coche.query
 
@@ -56,19 +57,21 @@ def get_coches():
     if descripcion_filtro:
         query = query.filter(Coche.descripcion.ilike(f'%{descripcion_filtro}%'))
 
+    if limit is not None: # Aplicar el límite si se proporciona
+        query = query.limit(limit)
+
     coches = query.all()
 
     coches_list = []
     for coche in coches:
-        # Obtener el nombre de usuario del propietario del coche
         vendedor_username = coche.usuario.username if coche.usuario else 'Desconocido'
         coches_list.append({
             'id': coche.id,
             'modelo': coche.modelo,
             'descripcion': coche.descripcion,
             'ruta_foto': coche.ruta_foto,
-            'usuario_id': coche.usuario_id, # Mantenemos el ID
-            'vendedor_username': vendedor_username # NUEVO: Nombre de usuario del vendedor
+            'usuario_id': coche.usuario_id,
+            'vendedor_username': vendedor_username
         })
     return jsonify(coches_list), 200
 
