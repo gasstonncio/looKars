@@ -6,6 +6,7 @@ Descripción del Proyecto
 LooKars es una plataforma web desarrollada para facilitar la gestión de anuncios de vehículos. La idea principal es ofrecer un espacio donde tanto empresas de compraventa como particulares puedan publicar sus coches en venta de manera eficiente y sencilla. Los usuarios también pueden buscar y ver los detalles de los vehículos disponibles.
 
 Características Principales
+
 Registro de Usuarios: Permite a nuevos usuarios crear una cuenta en la plataforma.
 
 Inicio de Sesión: Los usuarios registrados pueden acceder a sus funcionalidades personalizadas.
@@ -25,40 +26,40 @@ Gestión de Anuncios Propios: Los usuarios pueden ver, editar y eliminar sus pro
 Cierre de Sesión: Permite a los usuarios finalizar su sesión de forma segura.
 
 Tecnologías Utilizadas
+
 Frontend: HTML, CSS, JavaScript.
-
 Backend: Python con Flask.
-
 Base de Datos: SQLite.
 
 Instalación y Ejecución Local
+
 Para poner en marcha LooKars en tu máquina local, sigue estos pasos:
 
 Clonar el repositorio:
 
-git clone [URL_DE_TU_REPOSITORIO]
-cd LooKars
+    git clone [URL_DE_TU_REPOSITORIO]
+    cd LooKars
 
 (Reemplaza [URL_DE_TU_REPOSITORIO] con la URL real de tu repositorio en GitHub).
 
 Crear y activar el entorno virtual:
 
-python -m venv venv
-.\venv\Scripts\Activate.ps1
+    python -m venv venv
+    .\venv\Scripts\Activate.ps1
 
 Instalar dependencias:
 
-pip install Flask Flask-SQLAlchemy Werkzeug Flask-Login
+    pip install Flask Flask-SQLAlchemy Werkzeug Flask-Login
 
 Configurar y ejecutar la aplicación Flask:
 
-$env:FLASK_APP="backend"
-flask run --debug
+    $env:FLASK_APP="backend"
+    flask run --debug
 
 (Si tienes problemas con flask run, asegúrate de que el entorno virtual está activo y que estás en la raíz del proyecto).
 
 Acceder a la aplicación:
-Abre tu navegador web y ve a http://127.0.0.1:5000/.
+      Abre tu navegador web y ve a http://127.0.0.1:5000/.
 
 Estructura del Proyecto
 LooKars/
