@@ -313,3 +313,46 @@ footer {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+/* Estilos para la cuadrícula de coches destacados en la página principal */
+.featured-cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 columnas en escritorio, adaptable */
+    gap: 30px; /* Espacio entre las tarjetas */
+    margin-top: 20px;
+    justify-items: center; /* Centra los elementos en la cuadrícula */
+}
+
+/* Ajuste para que las tarjetas de coches destacados también se vean bien en la cuadrícula */
+.featured-cars-grid .car-listing {
+    width: 100%; /* Las tarjetas ocupan el ancho de la columna */
+    flex-direction: column; /* Apila imagen y texto en la tarjeta */
+    text-align: center;
+    align-items: center;
+    gap: 15px; /* Menos espacio interno si es columna */
+}
+
+.featured-cars-grid .car-listing img {
+    max-width: 100%; /* La imagen se adapta al ancho de la tarjeta */
+    height: 200px; /* Alto fijo para la imagen de la tarjeta */
+    object-fit: cover; /* Recorta la imagen para que se ajuste */
+}
+/* Estilos para el botón "Ver todos los coches" en la página principal */
+.button-link {
+    display: inline-block; /* Para que padding y margin funcionen correctamente */
+    padding: 12px 25px;
+    background-color: #2ecc71; /* Un verde vibrante */
+    color: white;
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra para realzar */
+    margin-top: 20px; /* Espacio superior */
+}
+
+.button-link:hover {
+    background-color: #27ae60; /* Verde más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de "levantar" */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
