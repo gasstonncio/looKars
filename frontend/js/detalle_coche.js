@@ -4,7 +4,7 @@ async function obtenerDetallesCoche() {
     carDetailContainer.innerHTML = '<p>Cargando detalles del coche...</p>';
 
     const urlParams = new URLSearchParams(window.location.search);
-    const carId = urlParams.get('id'); // Obtiene el valor del parámetro 'id'
+    const carId = urlParams.get('id');
 
     if (!carId || isNaN(carId)) {
         carDetailContainer.innerHTML = '<p>ID de coche no válido en la URL.</p>';
@@ -22,12 +22,11 @@ async function obtenerDetallesCoche() {
         const data = await response.json();
 
         if (response.ok) {
-            if (!data || !data.id) { //Si no se encuentra el coche o los datos son invalidos
+            if (!data || !data.id) {
                 carDetailContainer.innerHTML = '<p>El coche solicitado no fue encontrado.</p>';
                 return;
             }
 
-            //Construir la ruta de la imagen correctamente
             const filename = data.ruta_foto.split('\\').pop().split('/').pop();
             const imageUrl = `/uploads/${filename}`;
 
@@ -37,7 +36,7 @@ async function obtenerDetallesCoche() {
                 <p>${data.descripcion}</p>
                 <div class="meta-info">
                     <p>ID del Coche: ${data.id}</p>
-                    <p>Publicado por usuario ID: ${data.usuario_id}</p>
+                    <p>Publicado por: <strong>${data.vendedor_username}</strong></p> <!-- CAMBIO AQUÍ -->
                 </div>
             `;
         } else {
@@ -49,5 +48,4 @@ async function obtenerDetallesCoche() {
     }
 }
 
-//Llama a la función al cargar la pagina
 obtenerDetallesCoche();

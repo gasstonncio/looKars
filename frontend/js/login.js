@@ -1,5 +1,6 @@
 const loginForm = document.getElementById('login-form');
-const loginMessage = document.getElementById('login-message');
+// loginMessage ya no es necesario si usas showMessage globalmente
+// const loginMessage = document.getElementById('login-message');
 
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -19,13 +20,16 @@ loginForm.addEventListener('submit', async (event) => {
         const data = await response.json();
 
         if (response.ok) {
-            loginMessage.textContent = data.message;
+            showMessage(data.message || 'Inicio de sesión exitoso.', 'success');
             loginForm.reset();
-            window.location.href = 'coches.html';
+            setTimeout(() => {
+                window.location.href = 'coches.html'; // Redirigir a la página de ver coches
+            }, 1500); // Dar tiempo para que el mensaje se vea
         } else {
-            loginMessage.textContent = data.message;
+            showMessage(data.message || 'Credenciales inválidas.', 'error');
         }
     } catch (error) {
-        loginMessage.textContent = 'Error al iniciar sesión.';
+        console.error('Error al iniciar sesión:', error);
+        showMessage('Error de conexión al iniciar sesión.', 'error');
     }
 });

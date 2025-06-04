@@ -5,51 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Anuncios</title>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Estilos específicos para esta página, si es necesario */
-        .my-car-listing {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background-color: #f9f9f9;
-        }
-        .my-car-listing img {
-            max-width: 120px;
-            height: auto;
-            border-radius: 4px;
-        }
-        .my-car-details {
-            flex-grow: 1;
-        }
-        .my-car-details h3 {
-            margin-top: 0;
-            font-size: 1.5em;
-        }
-        .my-car-actions button {
-            padding: 8px 12px;
-            margin-left: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .my-car-actions .edit-btn {
-            background-color: #ffc107;
-            color: #333;
-        }
-        .my-car-actions .delete-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-        .my-car-actions button:hover {
-            opacity: 0.9;
-        }
-    </style>
 </head>
 <body>
+    <div id="global-message-container" style="display:none; padding: 15px; margin: 10px auto; border-radius: 5px; text-align: center; font-weight: bold; max-width: 600px;">
+        <p id="global-message-text"></p>
+    </div>
     <header>
         <h1>Mis Anuncios</h1>
         <nav>
@@ -61,7 +21,8 @@
                 <li id="nav-perfil" style="display:none;"><a href="perfil.html">Perfil</a></li>
                 <li id="nav-ver-coches" style="display:none;"><a href="coches.html">Ver Coches</a></li>
                 <li id="nav-mis-anuncios" style="display:none;"><a href="mis_coches.html">Mis Anuncios</a></li>
-                <li id="nav-username" style="display:none;"><span></span></li> <li id="nav-logout" style="display:none;"><a href="#" id="logout-link">Cerrar Sesión</a></li>
+                <li id="nav-username" style="display:none;"><span></span></li>
+                <li id="nav-logout" style="display:none;"><a href="#" id="logout-link">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>

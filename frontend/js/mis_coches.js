@@ -11,8 +11,11 @@ async function obtenerMisCoches() {
             }
         });
 
-        if (response.status === 401) { //Si no está autenticado
+        if (response.status === 401) { // Si no está autenticado
             misCochesContainer.innerHTML = '<p>Necesitas iniciar sesión para ver tus anuncios. Redirigiendo al Login...</p>';
+            if (typeof showMessage === 'function') {
+                showMessage('Necesitas iniciar sesión para ver tus anuncios. Redirigiendo al Login...', 'info', 2000);
+            }
             setTimeout(() => {
                 window.location.href = 'login.html';
             }, 2000);
@@ -21,7 +24,7 @@ async function obtenerMisCoches() {
 
         const coches = await response.json();
 
-        misCochesContainer.innerHTML = ''; //Limpia el mensaje de carga
+        misCochesContainer.innerHTML = ''; // Limpia el mensaje de carga
 
         if (response.ok) {
             if (coches.length === 0) {
@@ -32,7 +35,7 @@ async function obtenerMisCoches() {
             coches.forEach(coche => {
                 const carDiv = document.createElement('div');
                 carDiv.classList.add('my-car-listing');
-                carDiv.dataset.carId = coche.id; //Guarda el ID del coche en un atributo de datos
+                carDiv.dataset.carId = coche.id; // Guarda el ID del coche en un atributo de datos
 
                 const img = document.createElement('img');
                 const filename = coche.ruta_foto.split('\\').pop().split('/').pop();
@@ -54,7 +57,6 @@ async function obtenerMisCoches() {
                 editBtn.classList.add('edit-btn');
                 editBtn.textContent = 'Editar';
                 editBtn.addEventListener('click', () => {
-                    //REDIRECCION A LA PAGINA DE EDICION
                     window.location.href = `editar_coche.html?id=${coche.id}`;
                 });
 
@@ -71,14 +73,26 @@ async function obtenerMisCoches() {
                             const deleteData = await deleteResponse.json();
 
                             if (deleteResponse.ok) {
-                                alert(deleteData.message);
-                                obtenerMisCoches(); //Recargar la lista de coches
+                                if (typeof showMessage === 'function') {
+                                    showMessage(deleteData.message || 'Coche eliminado exitosamente.', 'success');
+                                } else {
+                                    alert(deleteData.message || 'Coche eliminado exitosamente.'); // Fallback
+                                }
+                                obtenerMisCoches(); // Recargar la lista de coches
                             } else {
-                                alert(`Error al eliminar: ${deleteData.message || 'Desconocido'}`);
+                                if (typeof showMessage === 'function') {
+                                    showMessage(`Error al eliminar: ${deleteData.message || 'Desconocido'}`, 'error');
+                                } else {
+                                    alert(`Error al eliminar: ${deleteData.message || 'Desconocido'}`); // Fallback
+                                }
                             }
                         } catch (deleteError) {
                             console.error('Error al eliminar el coche:', deleteError);
-                            alert('Error de conexión al intentar eliminar el coche.');
+                            if (typeof showMessage === 'function') {
+                                showMessage('Error de conexión al intentar eliminar el coche.', 'error');
+                            } else {
+                                alert('Error de conexión al intentar eliminar el coche.'); // Fallback
+                            }
                         }
                     }
                 });
@@ -101,5 +115,5 @@ async function obtenerMisCoches() {
     }
 }
 
-//Llama a la funcion al cargar la página
+// Llama a la función al cargar la página
 obtenerMisCoches();
